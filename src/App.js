@@ -6,7 +6,6 @@ import Form from './app/pages/Form/Form';
 
 let theme = createMuiTheme({
   palette: {
-    // primary: { main: '#ffffff' },
     background: { default: '#f8f9fc' },
     text: { secondary: 'rgb(0,0,0,0.4)' },
     //divider: '#addced'
