@@ -1,16 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-import { Redirect, Route, Router, Switch } from 'react-router';
+import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import Login from './app/pages/Login/Login.jsx';
-import PersonalInfo from './app/pages/PersonalInfo/PersonalInfo';
-import BankInfo from './app/pages/BankInfo/BankInfo';
-import RequestLoan from './app/pages/RequestLoan/RequestLoan';
 import { createMuiTheme, CssBaseline, responsiveFontSizes, ThemeProvider } from '@material-ui/core'
 import Form from './app/pages/Form/Form';
 
-let theme = createMuiTheme({})
+let theme = createMuiTheme({
+  palette: {
+    primary: { main: '#ffffff' },
+    background: { default: '#f8f9fc' },
+    text: { secondary: 'rgb(0,0,0,0.4)' }
+    //divider: '#addced'
+  },
+  typography: {
+    // allVariants: { color: "#ffffff" },
+    'subtitle1': { fontSize: 17, color: 'rgb(0,0,0,0.8)' },
+    'subtitle2': { color: 'rgb(0,0,0,0.8)' },
+    caption: { fontSize: 15, color: 'rgb(0,0,0,0.5)', fontWeight: 600, textTransform: 'uppercase' },
+    h1: { fontSize: 80, fontWeight: 'bold' },
+    h3: { fontWeight: 'bold' },
+    h4: { fontWeight: 'bold' },
+    h5: { fontWeight: 'bold' }
+
+  },
+})
 theme = responsiveFontSizes(theme)
 
 
@@ -23,7 +35,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/form" component={Form} />
             <Redirect from="/" to="/login" />
-            <Redirect to="/404"/>
+            <Redirect to="/404" />
           </Switch>
         </Router>
       </CssBaseline>
