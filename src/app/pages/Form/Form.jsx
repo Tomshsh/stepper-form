@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
             }
         }
     },
-    pageScroll: {
+    scrollContainer: {
         minHeight: "100%",
         overflow: "scroll",
     },
@@ -102,7 +102,7 @@ const Form = () => {
                         </Step>
                     ))}
                 </Stepper>
-                <div className={classes.pageScroll}>
+                <div className={classes.scrollContainer}>
                     <div className={classes.page}>
                         <div className={classes.content}>
                             {!wideScreen && <Typography variant="h3">{steps[currentStep].title}</Typography>}
