@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         flex: "0 0 5%",
         padding: '20px 0',
         backgroundColor: "transparent",
-        height: "100%",
+        maxHeight: "100vh",
         [theme.breakpoints.up("md")]: {
             flex: "0 0 25%",
             "& h5": {
@@ -35,12 +35,17 @@ const useStyles = makeStyles(theme => ({
             }
         }
     },
+    pageScroll: {
+        minHeight: "100%",
+        overflow: "scroll",
+    },
     page: {
         flex: "0 0 95%",
+        padding: '20px 30px 40px',
+        minHeight: "100%",
         position: "relative",
-        padding: '20px 30px',
         [theme.breakpoints.up("md")]: {
-            flex: "0 0 75%"
+            flex: "0 0 75%",
         }
     },
     content: {
@@ -52,9 +57,10 @@ const useStyles = makeStyles(theme => ({
     controllers: {
         width: "100%",
         justifyContent: "flex-end",
-        padding: "0 60yypx 20px 0",
         position: "absolute",
-        bottom: 0
+        height: 40,
+        paddingBottom:10,
+        bottom: 0, left: 0, right: 0
     },
     nextBtn: {
     }
@@ -96,21 +102,23 @@ const Form = () => {
                         </Step>
                     ))}
                 </Stepper>
-                <div className={classes.page}>
-                    <div className={classes.content}>
-                        {!wideScreen && <Typography variant="h3">{steps[currentStep].title}</Typography>}
-                        <Switch>
-                            {steps.map(s => (
-                                <Route path={s.path}  >
-                                    {s.component}
-                                </Route>
+                <div className={classes.pageScroll}>
+                    <div className={classes.page}>
+                        <div className={classes.content}>
+                            {!wideScreen && <Typography variant="h3">{steps[currentStep].title}</Typography>}
+                            <Switch>
+                                {steps.map(s => (
+                                    <Route path={s.path}  >
+                                        {s.component}
+                                    </Route>
 
-                            ))}
-                        </Switch>
+                                ))}
+                            </Switch>
+                        </div>
+                        <ButtonGroup className={classes.controllers}>
+                            <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} gutterBottom onClick={nextStep}>Next</Button>
+                        </ButtonGroup>
                     </div>
-                    <ButtonGroup className={classes.controllers}>
-                        <Button className={classes.nextBtn} variant="contained" onClick={nextStep}>Next</Button>
-                    </ButtonGroup>
                 </div>
             </div>
         </Container>
