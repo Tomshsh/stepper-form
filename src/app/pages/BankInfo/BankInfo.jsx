@@ -1,8 +1,8 @@
-import { Button, Divider, makeStyles, Slider, TextField, Typography } from "@material-ui/core"
+import {  Divider, makeStyles, Slider, Typography } from "@material-ui/core"
 import { useState } from "react"
 import TitleInput from "../../components/titleInput/TitleInput"
 import clsx from "clsx"
-import { Add } from "@material-ui/icons"
+import BankAccounts from "./BankAccounts"
 
 const useStyles = makeStyles(theme => ({
     form: {
@@ -30,17 +30,9 @@ const useStyles = makeStyles(theme => ({
         borderBottom: "1px solid",
         width: 60
     },
-    duplicable: {}
 }))
 
 const BankInfo = () => {
-
-
-    const bankAccount = {
-        bank: "",
-        branch: "",
-        accountNumber: ""
-    }
 
     const [shareVal, setShareVal] = useState(0)
     const handleShareInput = (e) => {
@@ -50,24 +42,7 @@ const BankInfo = () => {
     }
     const handleShareSlider = (e, newValue) => { setShareVal(newValue) }
 
-
     const [bankAccounts, setBankAccounts] = useState([])
-    const [edited, setEdited] = useState(0)
-    const [editting, setEditting] = useState(true)
-
-    const addAccount = () => {
-        setBankAccounts(state => [...state, { ...bankAccount }])
-    }
-
-    const editAccount = (e, i) => {
-        setBankAccounts(state => {
-            const account = { ...bankAccount }
-            const newState = [...state]
-            account[e.target.name] = e.target.value
-            newState[edited] = account
-            return newState
-        })
-    }
 
     const classes = useStyles()
 
@@ -93,22 +68,7 @@ const BankInfo = () => {
                 onChange={handleShareSlider} />
             <Divider />
             <Typography variant="h5" className={classes.paddingBottom}>Bank Accounts</Typography>
-            {
-                bankAccounts.map((a, i) => (
-                    <></>
-                ))
-            }
-            {
-                editting &&
-                <>
-                    <div className={classes.duplicable}>
-                        <TextField variant="outlined" label="Bank" name="bank" />
-                        <TextField variant="outlined" label="Branch" name="branch" />
-                        <TextField variant="outlined" label="Acc. Number" name="account" />
-                    </div>
-                    <Button startIcon={<Add/>} color="primary" variant="contained">Add</Button>
-                </>
-            }
+            <BankAccounts bankAccounts={bankAccounts} setBankAccounts={setBankAccounts}/>
         </form>
     )
 }

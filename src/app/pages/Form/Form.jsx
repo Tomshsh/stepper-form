@@ -36,20 +36,21 @@ const useStyles = makeStyles(theme => ({
         }
     },
     scrollContainer: {
+        flex: "0 0 95%",
         minHeight: "100%",
-        overflow: "scroll",
+        overflowY: "scroll",
+        [theme.breakpoints.up("md")]: {
+            flex: "0 0 75%",
+            overflowY:"hidden"
+        }
     },
     page: {
-        flex: "0 0 95%",
         padding: '20px 30px 40px',
         minHeight: "100%",
         position: "relative",
-        [theme.breakpoints.up("md")]: {
-            flex: "0 0 75%",
-        }
     },
     content: {
-        '& h3': {
+        '& h4': {
             marginBottom: 20,
             textTransform: "capitalize"
         }
@@ -59,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "flex-end",
         position: "absolute",
         height: 40,
-        paddingBottom:10,
+        paddingBottom: 10,
         bottom: 0, left: 0, right: 0
     },
     nextBtn: {
@@ -105,7 +106,7 @@ const Form = () => {
                 <div className={classes.scrollContainer}>
                     <div className={classes.page}>
                         <div className={classes.content}>
-                            {!wideScreen && <Typography variant="h3">{steps[currentStep].title}</Typography>}
+                            {!wideScreen && <Typography variant="h4">{steps[currentStep].title}</Typography>}
                             <Switch>
                                 {steps.map(s => (
                                     <Route path={s.path}  >
