@@ -109,7 +109,7 @@ const Form = () => {
                             {!wideScreen && <Typography variant="h4">{steps[currentStep].title}</Typography>}
                             <Switch>
                                 {steps.map(s => (
-                                    <Route path={s.path}  >
+                                    <Route key={s.title} path={s.path}  >
                                         {s.component}
                                     </Route>
 
@@ -117,7 +117,7 @@ const Form = () => {
                             </Switch>
                         </div>
                         <ButtonGroup className={classes.controllers}>
-                            <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} gutterBottom onClick={nextStep}>Next</Button>
+                            <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} onClick={nextStep}>Next</Button>
                         </ButtonGroup>
                     </div>
                 </div>

@@ -59,10 +59,6 @@ const Login = () => {
     })
     const [passVisible, setPassVisible] = useState(false)
 
-    useEffect(() => {
-        console.log(form.password.length)
-    }, [form.password])
-
     return (
         <Container maxWidth="lg" className={classes.container}>
             <div className={classes.subContainer} >

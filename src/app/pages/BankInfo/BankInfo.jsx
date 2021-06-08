@@ -1,5 +1,5 @@
-import {  Divider, makeStyles, Slider, Typography } from "@material-ui/core"
-import { useState } from "react"
+import { Divider, makeStyles, Slider, Typography } from "@material-ui/core"
+import { useEffect, useState } from "react"
 import TitleInput from "../../components/titleInput/TitleInput"
 import clsx from "clsx"
 import BankAccounts from "./BankAccounts"
@@ -68,7 +68,7 @@ const BankInfo = () => {
                 onChange={handleShareSlider} />
             <Divider />
             <Typography variant="h5" className={classes.paddingBottom}>Bank Accounts</Typography>
-            <BankAccounts bankAccounts={bankAccounts} setBankAccounts={setBankAccounts}/>
+            <BankAccounts bankAccounts={bankAccounts} setBankAccounts={setBankAccounts} />
         </form>
     )
 }

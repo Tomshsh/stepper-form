@@ -1,62 +1,59 @@
-import { Button, IconButton, TextField, Typography } from "@material-ui/core"
-import { Add, ConfirmationNumber, Delete, Edit } from "@material-ui/icons"
-import { useReducer, useState } from "react"
+import { Button, Hidden } from "@material-ui/core"
+import { Add } from "@material-ui/icons"
+import { useEffect, useReducer, useState } from "react"
+import BankAccount from "./BankAccount"
 
 
 
 const BankAccounts = (props) => {
 
-    const {bankAccounts, setBankAccounts} = props
+    const { bankAccounts, setBankAccounts } = props
 
-    const [edited, setEdited] = useState(0)
-    const [editting, setEditting] = useState(true)
+    const [editting, setEditting] = useState(0)
 
-    const reducer = (state, e) => ({ ...state, [e.target.name]: e.target.value })
-
-    const [bankAccount, setBankAccount] = useReducer(reducer, {
-        bank: "",
-        branch: "",
-        accountNumber: ""
-    })
     const addAccount = () => {
-        setBankAccounts(state => [...state, { ...bankAccount }])
+        setBankAccounts(state => {
+            setEditting(state.length)
+            return [...state, { bank: "", branch: "", accountNumber: "" }]
+        })
     }
 
-    const editAccount = (e, i) => {
+    const updateAccount = (index, newAccount) => {
         setBankAccounts(state => {
-            const account = { ...state[i] }
             const newState = [...state]
-            account[e.target.name] = e.target.value
-            newState[edited] = account
+            newState[index] = newAccount
             return newState
         })
     }
+    
+    const deleteAccount = (index) => {
+        const newAccounts = [...bankAccounts]
+        newAccounts.splice(index, 1)
+        setBankAccounts(newAccounts)
+    }
+
+    useEffect(() => {
+        if (!bankAccounts.length) { addAccount() }
+    }, [])
 
     return (
         <>
             {
                 bankAccounts.map((a, i) => (
-                    <>
-                        <Typography>{a.bank}</Typography>
-                        <Typography>{a.branch}</Typography>
-                        <Typography>{a.accountNumber}</Typography>
-                        <IconButton><Delete /></IconButton>
-                        <IconButton><Edit /></IconButton>
-                    </>
+                    <BankAccount
+                        key={i}
+                        editMode={editting == i}
+                        setEditting={setEditting}
+                        item={i}
+                        account={a}
+                        updateAccount={updateAccount}
+                        deleteAccount={deleteAccount}/>
                 ))
             }
-            {
-                editting &&
-                <>
-                    <div >
-                        <TextField variant="outlined" label="Bank" name="bank" onChange={setBankAccount} />
-                        <TextField variant="outlined" label="Branch" name="branch" onChange={setBankAccount} />
-                        <TextField variant="outlined" label="Acc. Number" name="accountNumber" onChange={setBankAccount} />
-                    </div>
-                    <Button startIcon={<ConfirmationNumber />} variant="contained" onClick={addAccount}>Confirm</Button>
-                    <Button startIcon={<Add />} color="primary" variant="contained">Add</Button>
-                </>
+            {editting == null &&
+                <Button onClick={addAccount} startIcon={<Add />} color="primary" variant="contained">Add</Button>
             }
+
         </>
     );
 }
