@@ -6,19 +6,20 @@ import Form from './app/pages/Form/Form';
 
 let theme = createMuiTheme({
   palette: {
-    background: { default: '#f8f9fc' },
+    background: { default: '#f8f9fc', paper: "#CBEAA6" },
     text: { secondary: 'rgb(0,0,0,0.4)' },
     //divider: '#addced'
   },
   typography: {
     // allVariants: { color: "#ffffff" },
-    'subtitle1': { fontSize: 17, color: 'rgb(0,0,0,0.5)',  fontWeight: 600, textTransform:'capitalize'  },
+    'subtitle1': { fontSize: 17, color: 'rgb(0,0,0,0.5)', fontWeight: 600, textTransform: 'capitalize' },
     'subtitle2': { color: 'rgb(0,0,0,0.8)' },
     caption: { fontSize: 15, color: 'rgb(0,0,0,0.5)', fontWeight: 600, textTransform: 'uppercase' },
     h1: { fontSize: 80, fontWeight: 'bold' },
     h3: { fontWeight: 'bold' },
     h4: { fontWeight: 'bold' },
-    h5: { fontWeight: 'bold' }
+    h5: { fontWeight: 'bold' },
+    h6: { fontWeight: 'bold' }
 
   },
 })

@@ -1,16 +1,30 @@
 import { Button, Grid, IconButton, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
 import { Cancel, Delete, Done, Edit } from "@material-ui/icons";
 import { useEffect, useReducer, useState } from "react";
+import clsx from "clsx"
 
 const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        width: "100%",
+        transition: "height 0.5s ease"
+    },
+    deletedItem: {
+        height: 0
     },
     row: {
-
-    }
+        display: "flex",
+        alignItems: "baseline"
+    },
+    flexColumn: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    info: {
+        justifyContent: "center"
+    },
 }))
 
 const BankAccount = (props) => {
@@ -25,13 +39,23 @@ const BankAccount = (props) => {
                 return { ...state, [action.e.target.name]: action.e.target.value }
             case "effect":
                 return action.payload
+            default:
+                return state
         }
     }
     const [bankAccount, setBankAccount] = useReducer(reducer, { ...account })
 
+    const [deleted, setDeleted] = useState(false)
+    const [created, setCreated] = useState(false)
+
     const updateAccount = () => {
         propsUpdateAcc(item, bankAccount)
         setEditting(null)
+    }
+
+    const deleteItem = () => {
+        setDeleted(true)
+        deleteAccount(item)
     }
 
     const handleInput = e => setBankAccount({ type: "event", e })
@@ -55,16 +79,16 @@ const BankAccount = (props) => {
 
                     </>
                     :
-                    <Paper className={classes.paper}>
-                        <div>
+                    <Paper className={clsx(classes.paper, {[classes.deletedItem]: deleted})}>
+                        <div className={clsx(classes.flexColumn,classes.info)}>
                             <div className={classes.row}>
                                 <Typography variant="caption">{bankAccount.branch}</Typography>
-                                <Typography variant="h5" component="span"> /{bankAccount.accountNumber}</Typography>
+                                <Typography variant="h6" component="span"> /{bankAccount.accountNumber}</Typography>
                             </div>
                             <Typography variant="caption">{bankAccount.bank}</Typography>
                         </div>
-                        <div>
-                            <IconButton onClick={() => deleteAccount(item)}><Delete /></IconButton>
+                        <div className={clsx(classes.flexColumn)}>
+                            <IconButton onClick={deleteItem}><Delete /></IconButton>
                             <IconButton onClick={() => setEditting(item)}><Edit /></IconButton>
                         </div>
                     </Paper>

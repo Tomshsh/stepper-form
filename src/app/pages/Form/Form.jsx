@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
         [theme.breakpoints.up("md")]: {
             boxShadow: "0 20px 43px hsla(0,0%,39.2%,0.05)",
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: "rgb(255, 255, 255, 0.8)",
             borderRadius: 10,
             overflow: 'hidden',
             padding: "30px 60px"
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     page: {
-        padding: '20px 30px 40px',
+        padding: '20px 30px 40px 10px',
         minHeight: "100%",
         position: "relative",
     },
@@ -59,8 +59,7 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         justifyContent: "flex-end",
         position: "absolute",
-        height: 40,
-        paddingBottom: 10,
+        padding: "0 30px 10px",
         bottom: 0, left: 0, right: 0
     },
     nextBtn: {
