@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
         borderColor: "theme.palette.text.secondary",
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: "baseline",
         transition: 'border-color 300ms ,width 0.5s',
         '&:hover': {
             borderColor: theme.palette.info.main,
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const TitleInput = (props) => {
 
-    const { value, onChange, style, className, ...other } = props
+    const { value, onChange, style, className, endAdornment, ...other } = props
 
     const [inFocus, setFocus] = useState(false)
 
@@ -58,6 +59,7 @@ const TitleInput = (props) => {
                         {...other}
                     /> : <Typography variant="h5">{value.title}</Typography>
             }
+            {endAdornment}
         </div>);
 }
 

@@ -1,5 +1,5 @@
 import { Container, InputAdornment, makeStyles, Slider, Typography } from "@material-ui/core";
-import { Money } from "@material-ui/icons";
+import { AttachMoney} from "@material-ui/icons";
 import { useMemo, useState } from "react";
 import TitleInput from "../../components/titleInput/TitleInput"
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center"
     },
     container: {
-        height:"60%"
+        height: "60%"
     },
     amount: {
         padding: theme.spacing(3)
@@ -40,16 +40,24 @@ const RequestLoan = () => {
 
     const classes = useStyles()
 
+    const restrictMinMax = (val, min, max) => (
+        val > max
+            ? max
+            : val < min
+                ? min
+                : val
+    )
+
     const [amount, setAmount] = useState(100000)
     const getDelimitedNum = (num) => num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     const amountString = useMemo(() => getDelimitedNum(amount), [amount])
 
-    const handleAmountChange = e => setAmount(e.target.value)
+    const handleAmountChange = e => setAmount(restrictMinMax(e.target.value, 100000, 8000000))
 
     const [timeSpan, setTimeSpan] = useState(4)
 
     const handleSlider = (e, newValue) => setTimeSpan(newValue)
-    const handleInput = e => setTimeSpan(e.target.value)
+    const handleInput = e => setTimeSpan(restrictMinMax(e.target.value, 4, 8))
 
     return (
         <div className={classes.wrapper}>
@@ -65,7 +73,7 @@ const RequestLoan = () => {
                             min: 100000, max: 8000000, 'aria-lebelledby': 'amount'
                         }}
                         endAdornment={
-                            <InputAdornment><Money /></InputAdornment>
+                            <InputAdornment><AttachMoney /></InputAdornment>
                         }
                     />
                 </div>
