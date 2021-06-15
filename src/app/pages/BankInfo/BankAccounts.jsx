@@ -51,7 +51,7 @@ const BankAccounts = (props) => {
                 ))
             }
             {editting == null &&
-            <Grid item>
+            <Grid item xs={12}>
                 <Button onClick={addAccount} startIcon={<Add />} color="primary" variant="contained">Add</Button>
             </Grid>
             }
