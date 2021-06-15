@@ -88,6 +88,7 @@ const Form = () => {
 
     useEffect(() => {
         history.push(steps[currentStep].path)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentStep])
 
     return (

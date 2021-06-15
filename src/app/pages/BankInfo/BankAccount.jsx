@@ -66,7 +66,7 @@ const BankAccount = (props) => {
 
 
     return (
-        <Grid item xs={12}>
+        <Grid item sm={12} md={6}>
             {
                 editMode ?
                     <>
