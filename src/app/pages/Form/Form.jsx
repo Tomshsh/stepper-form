@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Container, makeStyles, Step, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BrowserRouter as Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import BankInfo from "../BankInfo/BankInfo";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
@@ -41,11 +41,11 @@ const useStyles = makeStyles(theme => ({
         overflowY: "scroll",
         [theme.breakpoints.up("md")]: {
             flex: "0 0 75%",
-            overflowY:"hidden"
+            overflowY: "hidden"
         }
     },
     page: {
-        padding: '20px 30px 40px 10px',
+        padding: '20px 30px 50px 10px',
         minHeight: "100%",
         position: "relative",
     },
@@ -82,13 +82,17 @@ const Form = () => {
         { title: 'request-loan', path: `${path}/request-loan`, component: <RequestLoan /> }
     ]
 
+    const lastStep = useMemo(() => currentStep === (steps.length - 1), [currentStep, steps.length])
+
     const nextStep = () => {
         setCurrentStep(state => state + 1)
     }
 
+    const submitForm =() => {}
+
     useEffect(() => {
         history.push(steps[currentStep].path)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentStep])
 
     return (
@@ -117,7 +121,9 @@ const Form = () => {
                             </Switch>
                         </div>
                         <ButtonGroup className={classes.controllers}>
-                            <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} onClick={nextStep}>Next</Button>
+                            {lastStep 
+                                ? <Button variant="contained" fullWidth={!wideScreen} onClick={submitForm}>Submit</Button>
+                                : <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} onClick={nextStep}>Next</Button>}
                         </ButtonGroup>
                     </div>
                 </div>
