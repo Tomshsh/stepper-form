@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Container, makeStyles, Step, StepLabel, Stepper, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BrowserRouter as Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import BankInfo from "../BankInfo/BankInfo";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
         [theme.breakpoints.up("md")]: {
             boxShadow: "0 20px 43px hsla(0,0%,39.2%,0.05)",
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: "rgb(255, 255, 255, 0.8)",
             borderRadius: 10,
             overflow: 'hidden',
             padding: "30px 60px"
@@ -41,11 +41,11 @@ const useStyles = makeStyles(theme => ({
         overflowY: "scroll",
         [theme.breakpoints.up("md")]: {
             flex: "0 0 75%",
-            overflowY:"hidden"
+            overflowY: "hidden"
         }
     },
     page: {
-        padding: '20px 30px 40px',
+        padding: '20px 30px 50px 10px',
         minHeight: "100%",
         position: "relative",
     },
@@ -59,8 +59,7 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         justifyContent: "flex-end",
         position: "absolute",
-        height: 40,
-        paddingBottom: 10,
+        padding: "0 30px 10px",
         bottom: 0, left: 0, right: 0
     },
     nextBtn: {
@@ -83,12 +82,17 @@ const Form = () => {
         { title: 'request-loan', path: `${path}/request-loan`, component: <RequestLoan /> }
     ]
 
+    const lastStep = useMemo(() => currentStep === (steps.length - 1), [currentStep, steps.length])
+
     const nextStep = () => {
         setCurrentStep(state => state + 1)
     }
 
+    const submitForm =() => {}
+
     useEffect(() => {
         history.push(steps[currentStep].path)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentStep])
 
     return (
@@ -117,7 +121,9 @@ const Form = () => {
                             </Switch>
                         </div>
                         <ButtonGroup className={classes.controllers}>
-                            <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} onClick={nextStep}>Next</Button>
+                            {lastStep 
+                                ? <Button variant="contained" fullWidth={!wideScreen} onClick={submitForm}>Submit</Button>
+                                : <Button className={classes.nextBtn} variant="contained" fullWidth={!wideScreen} onClick={nextStep}>Next</Button>}
                         </ButtonGroup>
                     </div>
                 </div>

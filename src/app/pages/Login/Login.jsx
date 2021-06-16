@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         },
         [theme.breakpoints.up('md')]: {
             boxShadow: "0 20px 43px hsla(0,0%,39.2%,0.05)",
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: "rgb(255, 255, 255, 0.8)",
             borderRadius: 10,
             overflow: 'hidden',
             padding: "30px 60px"

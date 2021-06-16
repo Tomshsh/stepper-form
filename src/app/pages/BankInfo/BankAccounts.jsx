@@ -1,4 +1,4 @@
-import { Button, Hidden } from "@material-ui/core"
+import { Button, Grid, Hidden } from "@material-ui/core"
 import { Add } from "@material-ui/icons"
 import { useEffect, useReducer, useState } from "react"
 import BankAccount from "./BankAccount"
@@ -37,7 +37,7 @@ const BankAccounts = (props) => {
     }, [])
 
     return (
-        <>
+        <Grid container spacing={3}>
             {
                 bankAccounts.map((a, i) => (
                     <BankAccount
@@ -51,10 +51,12 @@ const BankAccounts = (props) => {
                 ))
             }
             {editting == null &&
+            <Grid item xs={12}>
                 <Button onClick={addAccount} startIcon={<Add />} color="primary" variant="contained">Add</Button>
+            </Grid>
             }
 
-        </>
+        </Grid>
     );
 }
 
